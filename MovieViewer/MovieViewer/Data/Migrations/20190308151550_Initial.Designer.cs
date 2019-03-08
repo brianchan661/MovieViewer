@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieViewer.Data;
 
 namespace MovieViewer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190308151550_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,40 +196,6 @@ namespace MovieViewer.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Movie");
-                });
-
-            modelBuilder.Entity("MovieViewer.Models.MovieDb.Popula+Result", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("Adult");
-
-                    b.Property<string>("BackdropPath");
-
-                    b.Property<int>("OriginalLanguage");
-
-                    b.Property<string>("OriginalTitle");
-
-                    b.Property<string>("Overview");
-
-                    b.Property<double>("Popularity");
-
-                    b.Property<string>("PosterPath");
-
-                    b.Property<DateTimeOffset>("ReleaseDate");
-
-                    b.Property<string>("Title");
-
-                    b.Property<bool>("Video");
-
-                    b.Property<double>("VoteAverage");
-
-                    b.Property<long>("VoteCount");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PopulaResult");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
