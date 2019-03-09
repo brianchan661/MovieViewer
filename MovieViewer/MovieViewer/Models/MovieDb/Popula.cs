@@ -49,6 +49,7 @@ namespace MovieViewer.Models.MovieDb
 
             [Column(Order = 7)]
             [JsonProperty("release_date")]
+            [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
             public DateTimeOffset ReleaseDate { get; set; }
 
             [Column(Order = 8)]
@@ -76,7 +77,7 @@ namespace MovieViewer.Models.MovieDb
             public double VoteAverage { get; set; }
 
             [Column(Order = 14)]
-            public DateTimeOffset insertDate { get; set; }
+            public DateTimeOffset InsertDate { get; set; }
         }
 
     }

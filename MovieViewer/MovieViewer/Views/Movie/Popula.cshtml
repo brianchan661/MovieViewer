@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MovieViewer.Models.MovieDb.Popula.PopularMovie>
+
+@{
+    ViewData["Title"] = "Top 10 popual movie";
+}
+
+<h2>Top 10 popula movie! (Update daily)</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Poster
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Popularity
+            </th>
+            <th>
+                Score
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                ReleaseDate
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                <a href="@Url.Content("https://image.tmdb.org/t/p/w500" + item.PosterPath)" target="_blank">
+                    <img src="@Url.Content("https://image.tmdb.org/t/p/w500" + item.PosterPath)" width="60" />
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Popularity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VoteAverage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Overview)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
