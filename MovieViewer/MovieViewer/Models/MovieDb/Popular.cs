@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 /// </summary>
 namespace MovieViewer.Models.MovieDb
 {
-    public class Popula
+    public class Popular
     {
         public partial class ResultList
         {

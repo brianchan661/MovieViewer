@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using static MovieViewer.Models.MovieDb.Popula;
+using static MovieViewer.Models.MovieDb.Popular;
 
 /// <summary>
 /// API client for calling TheMovieDb apis.
@@ -21,7 +21,7 @@ namespace MovieViewer.ApiClient
         private const string BASE_URL = "https://api.themoviedb.org/3";
         private const string API_KEY = "?api_key=d1efd6fa1828aed23dc8d8d24120cd7d";
 
-        private const string POPULA_PATH = "/movie/popular";
+        private const string POPULAR_PATH = "/movie/popular";
 
         public MovieDbApiClient(MovieRespository movieRespository)
         {
@@ -31,7 +31,7 @@ namespace MovieViewer.ApiClient
         public void CallApi()
         {
             string parameter = "&page=1&language=en-US";
-            string endpoint = BASE_URL + POPULA_PATH  + API_KEY + parameter;
+            string endpoint = BASE_URL + POPULAR_PATH  + API_KEY + parameter;
             var client = new RestClient(endpoint);
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);

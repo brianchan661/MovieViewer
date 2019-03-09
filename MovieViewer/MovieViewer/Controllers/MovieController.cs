@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MovieViewer.Service.Repository;
-using static MovieViewer.Models.MovieDb.Popula;
+using static MovieViewer.Models.MovieDb.Popular;
 
 namespace MovieViewer.Controllers
 {
@@ -22,10 +22,10 @@ namespace MovieViewer.Controllers
             return View();
         }
 
-        public IActionResult Popula()
+        public IActionResult Popular()
         {
             ViewData["Message"] = "Your application description page.";
-            List<PopularMovie> result = _movieRespository.FindTopTenPopulaMovie();
+            List<PopularMovie> result = _movieRespository.FindTopTenPopularMovie();
             return View(result);
         }
     }

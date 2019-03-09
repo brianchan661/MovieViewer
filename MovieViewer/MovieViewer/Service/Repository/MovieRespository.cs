@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using static MovieViewer.Models.MovieDb.Popula;
+using static MovieViewer.Models.MovieDb.Popular;
 
 /// <summary>
 /// Respository call for Popular Movie data
@@ -44,7 +44,7 @@ namespace MovieViewer.Service.Repository
         /// Get the top 10 highest average vote from today and yesterday data.
         /// </summary>
         /// <returns></returns>
-        public List<PopularMovie> FindTopTenPopulaMovie()
+        public List<PopularMovie> FindTopTenPopularMovie()
         {
             DateTimeOffset yesterday = DateTimeOffset.Now.Date.AddDays(-1);
             return _context.PopulaResult.OrderBy(p => p.InsertDate).OrderBy(p => p.VoteAverage)
