@@ -13,7 +13,7 @@ using MovieViewer.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MovieViewer.Service.Repository;
-using static MovieViewer.Models.MovieDb.Popula;
+using static MovieViewer.Models.MovieDb.Popular;
 using MovieViewer.Models;
 using MovieViewer.ApiClient;
 

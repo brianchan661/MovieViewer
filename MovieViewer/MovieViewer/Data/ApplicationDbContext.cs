@@ -14,7 +14,7 @@ namespace MovieViewer.Data
         {
         }
         public DbSet<MovieViewer.Models.Movie> Movie { get; set; }
-        public DbSet<MovieViewer.Models.MovieDb.Popula.PopularMovie> PopulaResult { get; set; }
+        public DbSet<MovieViewer.Models.MovieDb.Popular.PopularMovie> PopulaResult { get; set; }
 
     }
 }

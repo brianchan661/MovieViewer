@@ -1,9 +1,10 @@
-﻿using MovieViewer.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieViewer.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using static MovieViewer.Models.MovieDb.Popula;
+using static MovieViewer.Models.MovieDb.Popular;
 
 /// <summary>
 /// Respository call for Popular Movie data
@@ -29,7 +30,7 @@ namespace MovieViewer.Service.Repository
             {
                 foreach (PopularMovie result in results)
                 {
-                    result.insertDate = DateTimeOffset.Now;
+                    result.InsertDate = DateTimeOffset.Now;
                     Create(result);
                 }
             } catch (Exception ex)
@@ -39,6 +40,17 @@ namespace MovieViewer.Service.Repository
             
         }
 
+        /// <summary>
+        /// Get the top 10 highest average vote from today and yesterday data.
+        /// </summary>
+        /// <returns></returns>
+        public List<PopularMovie> FindTopTenPopularMovie()
+        {
+            DateTimeOffset yesterday = DateTimeOffset.Now.Date.AddDays(-1);
+            return _context.PopulaResult.OrderBy(p => p.InsertDate).OrderBy(p => p.VoteAverage)
+                .Where(p => p.InsertDate > yesterday).Take(10).ToList();
+        }
+        
         public void Create(PopularMovie entity)
         {
             _context.Add(entity);
