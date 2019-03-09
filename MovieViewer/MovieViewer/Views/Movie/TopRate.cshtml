@@ -1,22 +1,23 @@
 ﻿@model IEnumerable<MovieViewer.Models.MovieDb.Popular.PopularMovie>
 
 @{
-    ViewData["Title"] = "Top 10 popular";
+    ViewData["Title"] = "Top Rated";
+    int i = 1;
 }
 
-<h2>Top 10 popula movie! (Update daily)</h2>
+<h2>Top 5 rated movie</h2>
 
 <table class="table">
     <thead>
         <tr>
             <th>
+                
+            </th>
+            <th>
                 Poster
             </th>
             <th>
                 Title
-            </th>
-            <th>
-                Popularity
             </th>
             <th>
                 Score
@@ -34,15 +35,15 @@
         {
         <tr>
             <td>
+                <img src="~/images/Prize@(i).jpg" width=" 50" />
+            </td>
+            <td>
                 <a href="@Url.Content("https://image.tmdb.org/t/p/w500" + item.PosterPath)" target="_blank">
                     <img src="@Url.Content("https://image.tmdb.org/t/p/w500" + item.PosterPath)" width="60" />
                 </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Popularity)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.VoteAverage)
@@ -55,6 +56,7 @@
                 @Html.DisplayFor(modelItem => item.ReleaseDate)
             </td>
         </tr>
+        i++;
         }
     </tbody>
 </table>

@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Movie\TopRate.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Movie\Popular.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
