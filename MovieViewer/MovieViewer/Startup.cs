@@ -12,6 +12,10 @@ using Microsoft.EntityFrameworkCore;
 using MovieViewer.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MovieViewer.Service.Repository;
+using static MovieViewer.Models.MovieDb.Popula;
+using MovieViewer.Models;
+using MovieViewer.ApiClient;
 
 namespace MovieViewer
 {
@@ -39,6 +43,14 @@ namespace MovieViewer
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+            // dependency injection
+            services.AddScoped<MovieDbApiClient, MovieDbApiClient>();
+            services.AddScoped<MovieRespository, MovieRespository>();
+            //services.AddSingleton(typeof(IRepositoryBase<Entity>), typeof(MovieRespository));
+
+
 
             // set up soical network authentication credentail
             services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>

@@ -196,7 +196,7 @@ namespace MovieViewer.Data.Migrations
                     b.ToTable("Movie");
                 });
 
-            modelBuilder.Entity("MovieViewer.Models.MovieDb.Popula+Result", b =>
+            modelBuilder.Entity("MovieViewer.Models.MovieDb.Popula+PopularMovie", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
@@ -205,7 +205,7 @@ namespace MovieViewer.Data.Migrations
 
                     b.Property<string>("BackdropPath");
 
-                    b.Property<int>("OriginalLanguage");
+                    b.Property<string>("OriginalLanguage");
 
                     b.Property<string>("OriginalTitle");
 
@@ -224,6 +224,8 @@ namespace MovieViewer.Data.Migrations
                     b.Property<double>("VoteAverage");
 
                     b.Property<long>("VoteCount");
+
+                    b.Property<DateTimeOffset>("insertDate");
 
                     b.HasKey("Id");
 
