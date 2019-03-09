@@ -22,10 +22,23 @@ namespace MovieViewer.Controllers
             return View();
         }
 
+        /// <summary>
+        /// get top 10 popular movie and show on page.
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Popular()
         {
-            ViewData["Message"] = "Your application description page.";
             List<PopularMovie> result = _movieRespository.FindTopTenPopularMovie();
+            return View(result);
+        }
+
+        /// <summary>
+        /// get top 5 popular movie and show on page.
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult TopRate()
+        {
+            List<PopularMovie> result = _movieRespository.FindTopFiveRatedMovie();
             return View(result);
         }
     }
