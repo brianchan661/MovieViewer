@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieViewer.Service.Repository;
 using static MovieViewer.Models.MovieDb.Popular;
 
 namespace MovieViewer.Controllers
 {
+    [Authorize]
     public class MovieController : Controller
     {
         private readonly MovieRespository _movieRespository;
@@ -26,6 +28,7 @@ namespace MovieViewer.Controllers
         /// get top 10 popular movie and show on page.
         /// </summary>
         /// <returns></returns>
+        /// 
         public IActionResult Popular()
         {
             List<PopularMovie> result = _movieRespository.FindTopTenPopularMovie();
