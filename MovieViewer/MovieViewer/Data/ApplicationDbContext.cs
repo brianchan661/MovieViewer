@@ -13,8 +13,7 @@ namespace MovieViewer.Data
             : base(options)
         {
         }
-        public DbSet<MovieViewer.Models.Movie> Movie { get; set; }
-        public DbSet<MovieViewer.Models.MovieDb.Popular.PopularMovie> PopulaResult { get; set; }
+        public DbSet<MovieViewer.Models.MovieDb.MovieResponse.Movie> Movie { get; set; }
 
     }
 }

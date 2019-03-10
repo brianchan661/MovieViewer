@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using static MovieViewer.Models.MovieDb.Popular;
+using static MovieViewer.Models.MovieDb.MovieResponse;
 
 /// <summary>
 /// API client for calling TheMovieDb apis.
