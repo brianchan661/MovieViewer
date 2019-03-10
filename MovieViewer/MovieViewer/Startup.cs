@@ -13,9 +13,9 @@ using MovieViewer.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MovieViewer.Service.Repository;
-using static MovieViewer.Models.MovieDb.MovieResponse;
 using MovieViewer.Models;
 using MovieViewer.ApiClient;
+using MovieViewer.Scheduler;
 
 namespace MovieViewer
 {
@@ -33,7 +33,6 @@ namespace MovieViewer
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
@@ -48,8 +47,9 @@ namespace MovieViewer
             // dependency injection
             services.AddScoped<MovieDbApiClient, MovieDbApiClient>();
             services.AddScoped<MovieRespository, MovieRespository>();
-            //services.AddSingleton(typeof(IRepositoryBase<Entity>), typeof(MovieRespository));
 
+            // shcedule task dependency injection
+            services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, RetreiveDataScheduleTask>();
 
 
             // set up soical network authentication credentail
@@ -77,7 +77,6 @@ namespace MovieViewer
                 options.LoginPath = "/Identity/Account/Login";
                 options.LogoutPath = "/Identity/Account/Logout";
             });
-
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

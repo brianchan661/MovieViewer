@@ -38,9 +38,6 @@ namespace MovieViewer.ApiClient
             var content = response.Content;
             ResultList model = JsonConvert.DeserializeObject<ResultList>(content);
             _movieRespository.InsertList(model.Results);
-
-
-            Console.Write(content);
         }
     }
 }
