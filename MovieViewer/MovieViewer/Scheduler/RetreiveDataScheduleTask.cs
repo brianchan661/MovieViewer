@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+/// <summary>
+/// schedule task for calling movie retrieve api.
+/// </summary>
 namespace MovieViewer.Scheduler
 {
     public class RetreiveDataScheduleTask : ScheduleProcessor
@@ -15,8 +18,14 @@ namespace MovieViewer.Scheduler
         {
         }
 
-        protected override string Schedule => "*/1 * * * *";
+        // execute daily at 00:00
+        protected override string Schedule => "* 0 * * *";
 
+        /// <summary>
+        /// Task for calling MovieRetriever api
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <returns></returns>
         public override Task ProcessInScope(IServiceProvider serviceProvider)
         {
             var client = new RestClient("https://localhost:5001" + RETREIVE_DATA_API_PATH);

@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
+/// <summary>
+/// service class for executing schedule task
+/// </summary>
 namespace MovieViewer.Service
 {
     public abstract class BackgroundService : IHostedService

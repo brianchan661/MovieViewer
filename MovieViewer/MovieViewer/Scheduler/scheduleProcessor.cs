@@ -7,6 +7,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Abstract class for schedule task class
+/// </summary>
 namespace MovieViewer.Scheduler
 {
     public abstract class ScheduleProcessor : ScopeProcessService
