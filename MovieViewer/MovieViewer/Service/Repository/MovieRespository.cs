@@ -5,14 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using static MovieViewer.Models.MovieDb.Popular;
+using static MovieViewer.Models.MovieDb.MovieResponse;
 
 /// <summary>
 /// Respository call for Popular Movie data
 /// </summary>
 namespace MovieViewer.Service.Repository
 {
-    public class MovieRespository : IRepositoryBase<PopularMovie>
+    public class MovieRespository : IRepositoryBase<Movie>
     {
         private readonly ApplicationDbContext _context;
 
@@ -25,13 +25,13 @@ namespace MovieViewer.Service.Repository
         /// Insert a list of popula movies into database.
         /// </summary>
         /// <param name="results"></param>
-        public void InsertList(List<PopularMovie> results)
+        public void InsertList(List<Movie> results)
         {
             try
             {
-                foreach (PopularMovie result in results)
+                foreach (Movie result in results)
                 {
-                    PopularMovie movie = FindById(result.Id);
+                    Movie movie = FindById(result.Id);
                     // if the movie is already in database, just update the popularity and voting
                     if (movie != null)
                     {
@@ -58,10 +58,10 @@ namespace MovieViewer.Service.Repository
         /// Get the top 10 highest average vote from today and yesterday data.
         /// </summary>
         /// <returns></returns>
-        public List<PopularMovie> FindTopTenPopularMovie()
+        public List<Movie> FindTopTenPopularMovie()
         {
             DateTimeOffset yesterday = DateTimeOffset.Now.Date.AddDays(-1);
-            return _context.PopulaResult.OrderByDescending(p => p.InsertDate).OrderBy(p => p.Popularity)
+            return _context.Movie.OrderByDescending(p => p.InsertDate).OrderByDescending(p => p.Popularity)
                 .Where(p => p.InsertDate > yesterday).Take(10).ToList();
         }
 
@@ -69,9 +69,9 @@ namespace MovieViewer.Service.Repository
         /// Get the top 5 highest rated overall database.
         /// </summary>
         /// <returns></returns>
-        public List<PopularMovie> FindTopFiveRatedMovie()
+        public List<Movie> FindTopFiveRatedMovie()
         {
-            return _context.PopulaResult.OrderByDescending(p => p.VoteAverage).Take(5).ToList();
+            return _context.Movie.OrderByDescending(p => p.VoteAverage).Take(5).ToList();
         }
 
         /// <summary>
@@ -79,23 +79,23 @@ namespace MovieViewer.Service.Repository
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public PopularMovie FindById(long key)
+        public Movie FindById(long key)
         {
-            return _context.PopulaResult.Where(p => p.Id == key).First();
+            return _context.Movie.Where(p => p.Id == key).FirstOrDefault();
         }
 
-        public void Create(PopularMovie entity)
+        public void Create(Movie entity)
         {
             _context.Add(entity);
             _context.SaveChanges();
         }
 
-        public void Delete(PopularMovie entity)
+        public void Delete(Movie entity)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<PopularMovie> FindByCondition(Expression<Func<PopularMovie, bool>> expression)
+        public IEnumerable<Movie> FindByCondition(Expression<Func<Movie, bool>> expression)
         {
             throw new NotImplementedException();
         }
@@ -105,7 +105,7 @@ namespace MovieViewer.Service.Repository
             throw new NotImplementedException();
         }
 
-        public void Update(PopularMovie entity)
+        public void Update(Movie entity)
         {
             _context.Update(entity);
             _context.SaveChanges();

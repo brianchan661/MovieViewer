@@ -14,14 +14,15 @@ using System.Threading.Tasks;
 /// </summary>
 namespace MovieViewer.Models.MovieDb
 {
-    public class Popular
+    public class MovieResponse
     {
         public partial class ResultList
         {
-            public List<PopularMovie> Results { get; set; }
+            public List<Movie> Results { get; set; }
         }
 
-        public partial class PopularMovie : Entity
+
+        public partial class Movie : Entity
         {
             [Key, Column(Order = 1)]
             [JsonProperty("id")]
