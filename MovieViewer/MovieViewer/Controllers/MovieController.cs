@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MovieViewer.Service;
 using MovieViewer.Service.Repository;
 using static MovieViewer.Models.MovieDb.MovieResponse;
 
@@ -12,16 +13,16 @@ namespace MovieViewer.Controllers
     [Authorize]
     public class MovieController : Controller
     {
-        private readonly MovieRespository _movieRespository;
+        private readonly MovieService _movieService;
 
-        public MovieController(MovieRespository movieRespository)
+        public MovieController(MovieService movieService)
         {
-            this._movieRespository = movieRespository;
+            this._movieService = movieService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return Popular();
         }
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace MovieViewer.Controllers
         /// 
         public IActionResult Popular()
         {
-            List<Movie> result = _movieRespository.FindTopTenPopularMovie();
+            List<Movie> result = _movieService.GetTopTenPopularMovie();
             return View(result);
         }
 
@@ -41,7 +42,7 @@ namespace MovieViewer.Controllers
         /// <returns></returns>
         public IActionResult TopRate()
         {
-            List<Movie> result = _movieRespository.FindTopFiveRatedMovie();
+            List<Movie> result = _movieService.GetTopFiveRatedMovie();
             return View(result);
         }
     }

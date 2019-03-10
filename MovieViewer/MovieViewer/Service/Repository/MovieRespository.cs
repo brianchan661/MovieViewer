@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MovieViewer.Data;
-using MovieViewer.Models.MovieDb;
+﻿using MovieViewer.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;

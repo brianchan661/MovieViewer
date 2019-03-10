@@ -16,6 +16,7 @@ using MovieViewer.Service.Repository;
 using MovieViewer.Models;
 using MovieViewer.ApiClient;
 using MovieViewer.Scheduler;
+using MovieViewer.Service;
 
 namespace MovieViewer
 {
@@ -45,8 +46,9 @@ namespace MovieViewer
 
 
             // dependency injection
-            services.AddScoped<MovieDbApiClient, MovieDbApiClient>();
-            services.AddScoped<MovieRespository, MovieRespository>();
+            services.AddScoped<MovieService>();
+            services.AddScoped<MovieDbApiClient>();
+            services.AddScoped<MovieRespository>();
 
             // shcedule task dependency injection
             services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, RetreiveDataScheduleTask>();
