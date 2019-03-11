@@ -55,24 +55,27 @@ namespace MovieViewer
 
 
             // set up soical network authentication credentail
+            // The secret was store in AWS server, if you want to test on local, please 
+            // use your or ask for the secret
+            SetEbConfig();
             services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
             {
-                microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
-                microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:Password"];
+                microsoftOptions.ClientId = Environment.GetEnvironmentVariable("MicrosoftApplicationId");
+                microsoftOptions.ClientSecret = Environment.GetEnvironmentVariable("MicrosoftPassword");
             })
             .AddGoogle(googleOptions =>
             {
-                googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
-                googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                googleOptions.ClientId = Environment.GetEnvironmentVariable("GoogleClientId");
+                googleOptions.ClientSecret = Environment.GetEnvironmentVariable("GoogleClientSecret");
             })
             .AddFacebook(facebookOptions =>
             {
-                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
-                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                facebookOptions.AppId = Environment.GetEnvironmentVariable("FacebookAppId");
+                facebookOptions.AppSecret = Environment.GetEnvironmentVariable("FacebookAppSecret");
             })
             .AddTwitter(twitterOptions => {
-                twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"];
-                twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
+                twitterOptions.ConsumerKey = Environment.GetEnvironmentVariable("TwitterConsumerKey");
+                twitterOptions.ConsumerSecret = Environment.GetEnvironmentVariable("TwitterConsumerSecret");
             })
             .AddCookie(options =>
             {
@@ -111,6 +114,33 @@ namespace MovieViewer
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        /// <summary>
+        /// Retreive properties from AWS server and store to application environment
+        /// </summary>
+        private static void SetEbConfig()
+        {
+            var tempConfigBuilder = new ConfigurationBuilder();
+
+            tempConfigBuilder.AddJsonFile(
+                @"C:\Program Files\Amazon\ElasticBeanstalk\config\containerconfiguration",
+                optional: true,
+                reloadOnChange: true
+            );
+
+            var configuration = tempConfigBuilder.Build();
+
+            var ebEnv =
+                configuration.GetSection("iis:env")
+                    .GetChildren()
+                    .Select(pair => pair.Value.Split(new[] { '=' }, 2))
+                    .ToDictionary(keypair => keypair[0], keypair => keypair[1]);
+
+            foreach (var keyVal in ebEnv)
+            {
+                Environment.SetEnvironmentVariable(keyVal.Key, keyVal.Value);
+            }
         }
     }
 }

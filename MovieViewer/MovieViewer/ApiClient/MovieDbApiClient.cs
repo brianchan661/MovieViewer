@@ -14,7 +14,7 @@ using static MovieViewer.Models.MovieDb.MovieResponse;
 /// </summary>
 namespace MovieViewer.ApiClient
 {
-    public class MovieDbApiClient
+    public class MovieDbApiClient : IApiClient
     {
         private readonly MovieRespository _movieRespository;
 
@@ -28,16 +28,25 @@ namespace MovieViewer.ApiClient
             this._movieRespository = movieRespository;
         }
 
+        /// <summary>
+        /// Call TheMovieDb api and insert to DB
+        /// </summary>
         public void CallApi()
         {
-            string parameter = "&page=1&language=en-US";
-            string endpoint = BASE_URL + POPULAR_PATH  + API_KEY + parameter;
-            var client = new RestClient(endpoint);
-            var request = new RestRequest(Method.GET);
-            IRestResponse response = client.Execute(request);
-            var content = response.Content;
-            ResultList model = JsonConvert.DeserializeObject<ResultList>(content);
-            _movieRespository.InsertList(model.Results);
+            try
+            {
+                string parameter = "&page=1&language=en-US";
+                string endpoint = BASE_URL + POPULAR_PATH + API_KEY + parameter;
+                var client = new RestClient(endpoint);
+                var request = new RestRequest(Method.GET);
+                IRestResponse response = client.Execute(request);
+                var content = response.Content;
+                ResultList model = JsonConvert.DeserializeObject<ResultList>(content);
+                _movieRespository.InsertList(model.Results);
+            } catch(Exception ex)
+            {
+                Console.Write("unexpected exception happened during calling api. " + ex.Message);
+            }
         }
     }
 }

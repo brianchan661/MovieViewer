@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieViewer.ApiClient;
+using MovieViewer.Service;
 
 /// <summary>
 /// Api controller, mainly for schedule to notice application periodically retrieve new data
 /// from TheMovieDb and update the database.
 /// 
-/// The api will be called by batch.
+/// The api will be called by scheduled task.
 /// </summary>
 namespace MovieViewer.Controllers
 {
@@ -21,11 +22,11 @@ namespace MovieViewer.Controllers
     public class MovieRetrieverController : ControllerBase
     {
 
-        private readonly MovieDbApiClient _movieDbApiClient;
+        private readonly MovieService _movieService;
 
-        public MovieRetrieverController(MovieDbApiClient movieDbApiClient)
+        public MovieRetrieverController(MovieService movieService)
         {
-            this._movieDbApiClient = movieDbApiClient;
+            this._movieService = movieService;
         }
 
         /// <summary>
@@ -35,7 +36,7 @@ namespace MovieViewer.Controllers
         [HttpGet]
         public StatusCodeResult getPopulatedMovie()
         {
-            _movieDbApiClient.CallApi();
+            _movieService.RetrievePopularMovieFormMovieDb();
             return StatusCode(200);
         }
     }

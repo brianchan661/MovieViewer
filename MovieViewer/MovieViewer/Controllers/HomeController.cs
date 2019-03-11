@@ -5,33 +5,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MovieViewer.Models;
+using MovieViewer.Service;
 
+/// <summary>
+/// Home page controller
+/// </summary>
 namespace MovieViewer.Controllers
 {
     public class HomeController : Controller
     {
+
+        private readonly MovieService _movieService;
+
+        public HomeController(MovieService movieService)
+        {
+            this._movieService = movieService;
+        }
+
+        /// <summary>
+        /// Homw page of Movie Viewer
+        /// Show the top popular movie for recommenation
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            Models.MovieDb.MovieResponse.Movie todayTopMovie = _movieService.GetTopPopularMovie();
+            return View(todayTopMovie);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
