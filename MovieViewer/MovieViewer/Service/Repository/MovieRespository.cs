@@ -48,6 +48,7 @@ namespace MovieViewer.Service.Repository
             } catch (Exception ex)
             {
                 // Log and continue to insert next record
+                Console.Write("failed to insert a record. " + ex.Message);
             }
             
         }

@@ -67,7 +67,7 @@
                                 @foreach (var provider in Model.ExternalLogins)
                                 {
                                     <button type="submit" class="btn btn-default" name="provider" style="border-color:#fff" value="@provider.Name" title="Log in using your @provider.DisplayName account">
-                                        <img src="~/images/LoginButton/@(provider.Name).jpg" height="40px"/>
+                                        <img src="~/images/LoginButton/@(provider.Name).jpg" height="40"/>
                                     </button>
                                     <br />
                                 }
@@ -76,6 +76,8 @@
                     </form>
                 }
             }
+            Mircosof and Facebook login will not work on server because the force https.<br />
+            But my free aws account is not able to apply for a public domain and the certificate.
         </section>
     </div>
 </div>
