@@ -28,7 +28,7 @@ namespace MovieViewer.Scheduler
         /// <returns></returns>
         public override Task ProcessInScope(IServiceProvider serviceProvider)
         {
-            var client = new RestClient("https://localhost:5001" + RETREIVE_DATA_API_PATH);
+            var client = new RestClient("http://movieviewer-stg.ap-northeast-1.elasticbeanstalk.com" + RETREIVE_DATA_API_PATH);
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
